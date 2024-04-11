@@ -34,6 +34,13 @@ services:
     links:
       - db:database
 
+  frontend:
+    depends_on:
+      - backend
+    extends:
+      file: ./services/frontend.yml
+      service: frontend
+
   visualizer:
     extends:
       file: ./services/visualizer.yml
@@ -43,13 +50,6 @@ services:
     extends:
       file: ./services/sig-provider.yml
       service: sig-provider
-
-  frontend:
-    depends_on:
-      - backend
-    extends:
-      file: ./services/frontend.yml
-      service: frontend
 
   stats-db-init:
     extends:
