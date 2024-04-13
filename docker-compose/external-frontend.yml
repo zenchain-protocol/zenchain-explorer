@@ -79,5 +79,5 @@ services:
       - backend
       - stats
     extends:
-      file: ./services/nginx.yml
+      file: ./services/nginx-external-frontend.yml
       service: proxy
