@@ -61,7 +61,6 @@ dump.rdb
 
 **.dec**
 
-*.env
 *.env.example
 *.env.local
 *.env.staging

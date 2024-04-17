@@ -1,51 +1,237 @@
-<h1 align="center">Blockscout</h1>
-<p align="center">Blockchain Explorer for inspecting and analyzing EVM Chains.</p>
-<div align="center">
+# Zenchain Explorer Backend
 
-[![Blockscout](https://github.com/blockscout/blockscout/workflows/Blockscout/badge.svg?branch=master)](https://github.com/blockscout/blockscout/actions)
-[![](https://dcbadge.vercel.app/api/server/blockscout?style=flat)](https://discord.gg/blockscout)
+Zenchain Explorer is a comprehensive block explorer and analytics platform tailored for the Zenchain blockchain. Originating as a fork from Blockscout, the Zenchain Explorer has undergone significant enhancements to improve functionality and ease of deployment across various operating systems.
 
-</div>
+The Zenchain Explorer ecosystem consists of the following components:
 
+* Zenchain Explorer Backend (**the current repository**)
+* Zenchain Explorer Frontend <https://github.com/zenchain-protocol/zenchain-explorer-frontend>
+* Zenchain Explorer Rust Services <https://github.com/zenchain-protocol/zenchain-explorer-rs>
 
-Blockscout provides a comprehensive, easy-to-use interface for users to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine) blockchains. This includes Ethereum Mainnet, Ethereum Classic, Optimism, Gnosis Chain and many other **Ethereum testnets, private networks, L2s and sidechains**.
+# Development environment configuration
 
-See our [project documentation](https://docs.blockscout.com/) for detailed information and setup instructions.
+The process of setting up the development environment for Zenchain Explorer Backend, which is built using Elixir, differs depending on the operating system in use. This tutorial is designed to guide you through the preparation of your development environment, tailored to each of these operating systems.
 
-For questions, comments and feature requests see the [discussions section](https://github.com/blockscout/blockscout/discussions) or via [Discord](https://discord.com/invite/blockscout).
+## Dependencies
 
-## About Blockscout
+To successfully compile your code, it's essential to first install the required dependencies, with the installation process varying depending on your operating system.
 
-Blockscout allows users to search transactions, view accounts and balances, verify and interact with smart contracts and view and interact with applications on the Ethereum network including many forks, sidechains, L2s and testnets.
+### Git
 
-Blockscout is an open-source alternative to centralized, closed source block explorers such as Etherscan, Etherchain and others.  As Ethereum sidechains and L2s continue to proliferate in both private and public settings, transparent, open-source tools are needed to analyze and validate all transactions.
+Git is needed to get code from repositories.
 
-## Supported Projects
+#### Linux/WSL (Windows Subsystem for Linux)
 
-Blockscout currently supports several hundred chains and rollups throughout the greater blockchain ecosystem. Ethereum, Cosmos, Polkadot, Avalanche, Near and many others include Blockscout integrations. [A comprehensive list is available here](https://docs.blockscout.com/about/projects). If your project is not listed, please submit a PR or [contact the team in Discord](https://discord.com/invite/blockscout).
+Follow the instructions based on your Linux distribution (WSL by default installs Ubuntu) <https://git-scm.com/download/linux>
 
-## Getting Started
+#### MacOS
 
-See the [project documentation](https://docs.blockscout.com/) for instructions:
+Install Homebrew <https://brew.sh> and execute the following command:
 
-- [Manual deployment](https://docs.blockscout.com/for-developers/deployment/manual-deployment-guide)
-- [Docker-compose deployment](https://docs.blockscout.com/for-developers/deployment/docker-compose-deployment)
-- [Kubernetes deployment](https://docs.blockscout.com/for-developers/deployment/kubernetes-deployment)
-- [Manual deployment (backend + old UI)](https://docs.blockscout.com/for-developers/deployment/manual-old-ui)
-- [Ansible deployment](https://docs.blockscout.com/for-developers/ansible-deployment)
-- [ENV variables](https://docs.blockscout.com/for-developers/information-and-settings/env-variables)
-- [Configuration options](https://docs.blockscout.com/for-developers/configuration-options)
+```bash
+brew install git
+```
 
-## Acknowledgements
+#### Windows
 
-We would like to thank the [EthPrize foundation](http://ethprize.io/) for their funding support.
+Download and execute the installer based on your architecture <https://git-scm.com/download/win>
 
-## Contributing
+### Asdf
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution and pull request protocol. We expect contributors to follow our [code of conduct](CODE_OF_CONDUCT.md) when submitting code or comments.
+#### Linux/WSL (Windows Subsystem for Linux)
 
-## License
+`curl` package is needed, you can install it executing the following command (Ubuntu as reference):
 
-[![License: GPL v3.0](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+```bash
+sudo apt install -y curl
+```
 
-This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
+clone the Asdf repository with the following command:
+
+```bash
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+```
+
+edit the `~/.bashrc` file appending the following lines:
+
+```bash
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
+```
+
+install needed plugins executing the following commands:
+
+```bash
+asdf plugin add erlang
+asdf plugin add elixir
+asdf plugin add nodejs
+```
+
+#### MacOS
+
+`curl` and `coreutils` packages are needed, you can install them executing the following commands:
+
+```bash
+brew install coreutils curl
+```
+
+clone the Asdf repository with the following command:
+
+```bash
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+```
+
+create/edit the `~/.bash_profile` file appending the following lines:
+
+```bash
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
+```
+
+install needed plugins executing the following commands:
+
+```bash
+asdf plugin add erlang
+asdf plugin add elixir
+asdf plugin add nodejs
+```
+
+### PostgreSQL
+
+#### Linux/WSL (Windows Subsystem for Linux)
+
+Install PostgreSQL with the following command:
+
+```bash
+sudo apt install postgresql
+```
+
+alter `postgres` password:
+
+```bash
+sudo -u postgres psql template1
+ALTER USER postgres with encrypted password 'postgres';
+```
+
+create the environment variable used by the backend as connection string:
+
+```bash
+export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/zenchain-explorer
+```
+
+#### MacOS
+
+Install PostgreSQL with the following command:
+
+```bash
+brew install postgresql@15 libpq
+brew link --force libpq
+```
+
+alter `MAC_USER` password:
+
+```bash
+ALTER USER MAC_USER with encrypted password 'postgres';
+```
+
+create the environment variable used by the backend as connection string:
+
+```bash
+export DATABASE_URL=postgresql://MAC_USER:postgres@localhost:5432/zenchain-explorer
+```
+
+### Additional dependencies
+
+#### Linux/WSL (Windows Subsystem for Linux)
+
+Execute the following command (Ubuntu as reference):
+
+```bash
+sudo apt install -y libssl-dev make automake autoconf libncurses5-dev gcc g++ inotify-tools
+```
+
+## How to compile
+
+Create a new folder, open it in the terminal and execute:
+
+```text
+git clone https://github.com/zenchain-protocol/zenchain-explorer-backend
+```
+
+Open `zenchain-explorer-backend` folder and execute:
+
+```bash
+asdf install
+mix local.hex --force
+mix do deps.get, local.rebar --force, deps.compile
+```
+
+## Docker based development
+
+You can also build and run all within Docker directly.
+
+Edit the following environment variables:
+* [common-backend.env](docker-compose/envs/common-backend.env) 
+* [common-frontend.env](docker-compose/envs/common-frontend.env) 
+* [common-smart-contract-verifier.env](docker-compose/envs/common-smart-contract-verifier.env) 
+* [common-stats.env](docker-compose/envs/common-stats.env) 
+* [common-visualizer.env](docker-compose/envs/common-visualizer.env) 
+
+and then execute:
+
+### All
+
+```bash!
+cd docker-compose
+docker compose up -d
+```
+
+### Only backend
+
+```bash!
+cd docker-compose
+docker compose -f external-frontend.yml up -d
+```
+
+starts containers and starts listening using the port `80`.
+
+# Start the application locally
+
+Generate a new authentication encryption key:
+
+```bash
+mix phx.gen.secret
+```
+
+set the key into the `SECRET_KEY_BASE` environment variable:
+
+```bash
+export SECRET_KEY_BASE=KEY
+```
+
+Install Node.js packages:
+
+```bash
+cd apps/block_scout_web/assets
+npm install && node_modules/webpack/bin/webpack.js --mode production
+cd -
+```
+
+Generate local SSL certificate for development:
+
+```bash
+cd apps/block_scout_web
+mix phx.gen.cert zenchain-explorer zenchain-explorer.local
+```
+
+Edit [common-backend.env](docker-compose/envs/common-backend.env) variables and execute the following script to export all:
+
+```bash
+./export-backend-env.sh
+```
+
+You can now start the application for development with the following command:
+
+```bash
+mix phx.server
+```

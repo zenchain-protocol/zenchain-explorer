@@ -9,7 +9,7 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     env_file:
-      -  ../envs/common-blockscout.env
+      -  ../envs/common-backend.env
     volumes:
       - ./logs/:/app/logs/
     image: zenchain-explorer/backend
