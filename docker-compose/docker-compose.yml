@@ -30,21 +30,16 @@ services:
       context: ..
       dockerfile: ./docker/Dockerfile
       args:
-        CACHE_EXCHANGE_RATES_PERIOD: ""
-        API_V1_READ_METHODS_DISABLED: "false"
-        DISABLE_WEBAPP: "false"
-        API_V1_WRITE_METHODS_DISABLED: "false"
-        CACHE_TOTAL_GAS_USAGE_COUNTER_ENABLED: ""
-        CACHE_ADDRESS_WITH_BALANCES_UPDATE_INTERVAL: ""
-        ADMIN_PANEL_ENABLED: ""
         RELEASE_VERSION: 6.4.0
     links:
       - db:database
-    environment:
-        ETHEREUM_JSONRPC_HTTP_URL: http://host.docker.internal:8545/
-        ETHEREUM_JSONRPC_TRACE_URL: http://host.docker.internal:8545/
-        ETHEREUM_JSONRPC_WS_URL: ws://host.docker.internal:8545/
-        CHAIN_ID: '1337'
+
+  frontend:
+    depends_on:
+      - backend
+    extends:
+      file: ./services/frontend.yml
+      service: frontend
 
   visualizer:
     extends:
@@ -55,13 +50,15 @@ services:
     extends:
       file: ./services/sig-provider.yml
       service: sig-provider
+    ports:
+      - 8083:8050
 
-  frontend:
-    depends_on:
-      - backend
+  sc-verifier:
     extends:
-      file: ./services/frontend.yml
-      service: frontend
+      file: ./services/smart-contract-verifier.yml
+      service: smart-contract-verifier
+    ports:
+      - 8082:8050
 
   stats-db-init:
     extends:

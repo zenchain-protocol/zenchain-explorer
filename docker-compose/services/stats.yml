@@ -35,13 +35,13 @@ services:
       start_period: 10s
 
   stats:
-    image: ghcr.io/blockscout/stats:${STATS_DOCKER_TAG:-latest}
-    pull_policy: always
     platform: linux/amd64
     restart: always
     container_name: 'stats'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
+    image: zenchain-explorer/stats
+    build: https://github.com/zenchain-protocol/zenchain-explorer-rs.git#main:stats
     env_file:
       -  ../envs/common-stats.env
     environment:

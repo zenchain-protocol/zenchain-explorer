@@ -26,14 +26,13 @@ services:
     extends:
       file: ./services/backend.yml
       service: backend
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+      args:
+        RELEASE_VERSION: 6.4.0
     links:
       - db:database
-    environment:
-        ETHEREUM_JSONRPC_VARIANT: 'ganache'
-        ETHEREUM_JSONRPC_WS_URL: ws://host.docker.internal:8545/
-        INDEXER_DISABLE_INTERNAL_TRANSACTIONS_FETCHER: 'true'
-        INDEXER_DISABLE_PENDING_TRANSACTIONS_FETCHER: 'true'
-        CHAIN_ID: '1337'
 
   visualizer:
     extends:
@@ -44,6 +43,15 @@ services:
     extends:
       file: ./services/sig-provider.yml
       service: sig-provider
+    ports:
+      - 8083:8050
+
+  sc-verifier:
+    extends:
+      file: ./services/smart-contract-verifier.yml
+      service: smart-contract-verifier
+    ports:
+      - 8082:8050
 
   stats-db-init:
     extends:
@@ -71,5 +79,5 @@ services:
       - backend
       - stats
     extends:
-      file: ./services/nginx.yml
+      file: ./services/nginx-external-frontend.yml
       service: proxy
