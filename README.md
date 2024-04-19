@@ -197,6 +197,12 @@ starts containers and starts listening using the port `80`.
 
 # Start the application locally
 
+Generate the database structure with the following command:
+
+```bash
+mix do ecto.create, ecto.migrate
+```
+
 Generate a new authentication encryption key:
 
 ```bash
