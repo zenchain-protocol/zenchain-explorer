@@ -197,6 +197,12 @@ starts containers and starts listening using the port `80`.
 
 # Start the application locally
 
+Generate the database structure with the following command:
+
+```bash
+mix do ecto.create, ecto.migrate
+```
+
 Generate a new authentication encryption key:
 
 ```bash
@@ -224,10 +230,18 @@ cd apps/block_scout_web
 mix phx.gen.cert zenchain-explorer zenchain-explorer.local
 ```
 
-Edit [common-backend.env](docker-compose/envs/common-backend.env) variables and execute the following script to export all:
+Edit [common-backend.env](docker-compose/envs/common-backend.env) variables and execute the following command to export all:
+
+#### Linux/WSL (Windows Subsystem for Linux)
 
 ```bash
-./export-backend-env.sh
+export $(grep -v '^#' ./docker-compose/envs/common-backend.env | xargs -d '\n')
+```
+
+#### MacOS
+
+```bash
+export $(grep -v '^#' ./docker-compose/envs/common-backend.env | xargs -0)
 ```
 
 You can now start the application for development with the following command:
