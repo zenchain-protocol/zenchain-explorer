@@ -1,11 +1,11 @@
-version: '3.9'
+version: "3.9"
 
 services:
   frontend:
     platform: linux/amd64
     restart: always
-    container_name: 'frontend'
-    image: zenchain-explorer/frontend
-    build: https://github.com/zenchain-protocol/zenchain-explorer-frontend.git
+    container_name: "frontend"
+    image: zentrace/frontend
+    build: https://github.com/zenchain-protocol/zentrace-frontend.git
     env_file:
-      -  ../envs/common-frontend.env
+      - ../envs/common-frontend.env

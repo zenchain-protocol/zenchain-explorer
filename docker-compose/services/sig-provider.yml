@@ -1,9 +1,9 @@
-version: '3.9'
+version: "3.9"
 
 services:
   sig-provider:
     platform: linux/amd64
     restart: always
-    container_name: 'sig-provider'
-    image: zenchain-explorer/sig-provider
-    build: https://github.com/zenchain-protocol/zenchain-explorer-rs.git#main:sig-provider
+    container_name: "sig-provider"
+    image: zentrace/sig-provider
+    build: https://github.com/zenchain-protocol/zentrace-rs.git#main:sig-provider

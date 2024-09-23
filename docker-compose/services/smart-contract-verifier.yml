@@ -1,11 +1,11 @@
-version: '3.9'
+version: "3.9"
 
 services:
   smart-contract-verifier:
     platform: linux/amd64
     restart: always
-    container_name: 'smart-contract-verifier'
-    image: zenchain-explorer/smart-contract-verifier
-    build: https://github.com/zenchain-protocol/zenchain-explorer-rs.git#main:smart-contract-verifier
+    container_name: "smart-contract-verifier"
+    image: zentrace/smart-contract-verifier
+    build: https://github.com/zenchain-protocol/zentrace-rs.git#main:smart-contract-verifier
     env_file:
-      -  ../envs/common-smart-contract-verifier.env
+      - ../envs/common-smart-contract-verifier.env

@@ -1,11 +1,11 @@
-version: '3.9'
+version: "3.9"
 
 services:
   visualizer:
     platform: linux/amd64
     restart: always
-    container_name: 'visualizer'
-    image: zenchain-explorer/visualizer
-    build: https://github.com/zenchain-protocol/zenchain-explorer-rs.git#main:visualizer
+    container_name: "visualizer"
+    image: zentrace/visualizer
+    build: https://github.com/zenchain-protocol/zentrace-rs.git#main:visualizer
     env_file:
-      -  ../envs/common-visualizer.env
+      - ../envs/common-visualizer.env
