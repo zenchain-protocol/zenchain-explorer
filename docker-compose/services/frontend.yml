@@ -5,7 +5,6 @@ services:
     platform: linux/amd64
     restart: always
     container_name: "frontend"
-    image: zentrace/frontend
     build: https://github.com/zenchain-protocol/zentrace-frontend.git
     env_file:
       - ../envs/common-frontend.env

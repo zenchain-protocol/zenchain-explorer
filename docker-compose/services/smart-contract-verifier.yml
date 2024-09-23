@@ -5,7 +5,6 @@ services:
     platform: linux/amd64
     restart: always
     container_name: "smart-contract-verifier"
-    image: zentrace/smart-contract-verifier
     build: https://github.com/zenchain-protocol/zentrace-rs.git#main:smart-contract-verifier
     env_file:
       - ../envs/common-smart-contract-verifier.env

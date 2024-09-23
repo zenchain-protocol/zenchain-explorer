@@ -5,5 +5,4 @@ services:
     platform: linux/amd64
     restart: always
     container_name: "sig-provider"
-    image: zentrace/sig-provider
     build: https://github.com/zenchain-protocol/zentrace-rs.git#main:sig-provider
