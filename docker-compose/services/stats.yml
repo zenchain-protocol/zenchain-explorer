@@ -40,7 +40,6 @@ services:
     container_name: "stats"
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    image: zentrace/stats
     build: https://github.com/zenchain-protocol/zentrace-rs.git#main:stats
     env_file:
       - ../envs/common-stats.env

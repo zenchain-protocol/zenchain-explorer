@@ -12,4 +12,3 @@ services:
       - ../envs/common-backend.env
     volumes:
       - ./logs/:/app/logs/
-    image: zentrace/backend
