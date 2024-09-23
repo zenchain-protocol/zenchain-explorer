@@ -1,16 +1,16 @@
-# Zenchain Explorer Backend
+# Zentrace Backend
 
-Zenchain Explorer is a comprehensive block explorer and analytics platform tailored for the Zenchain blockchain. Originating as a fork from Blockscout, the Zenchain Explorer has undergone significant enhancements to improve functionality and ease of deployment across various operating systems.
+Zentrace is a comprehensive block explorer and analytics platform tailored for the Zenchain blockchain. Originating as a fork from Blockscout, Zentrace has undergone significant enhancements to improve functionality and ease of deployment across various operating systems.
 
-The Zenchain Explorer ecosystem consists of the following components:
+Zentrace ecosystem consists of the following components:
 
-* Zenchain Explorer Backend (**the current repository**)
-* Zenchain Explorer Frontend <https://github.com/zenchain-protocol/zenchain-explorer-frontend>
-* Zenchain Explorer Rust Services <https://github.com/zenchain-protocol/zenchain-explorer-rs>
+- Zentrace Backend (**the current repository**)
+- Zentrace Frontend <https://github.com/zenchain-protocol/zentrace-frontend>
+- Zentrace Rust Services <https://github.com/zenchain-protocol/zentrace-rs>
 
 # Development environment configuration
 
-The process of setting up the development environment for Zenchain Explorer Backend, which is built using Elixir, differs depending on the operating system in use. This tutorial is designed to guide you through the preparation of your development environment, tailored to each of these operating systems.
+The process of setting up the development environment for Zentrace Backend, which is built using Elixir, differs depending on the operating system in use. This tutorial is designed to guide you through the preparation of your development environment, tailored to each of these operating systems.
 
 ## Dependencies
 
@@ -116,7 +116,7 @@ ALTER USER postgres with encrypted password 'postgres';
 create the environment variable used by the backend as connection string:
 
 ```bash
-export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/zenchain-explorer
+export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/zentrace
 ```
 
 #### MacOS
@@ -137,7 +137,7 @@ ALTER USER MAC_USER with encrypted password 'postgres';
 create the environment variable used by the backend as connection string:
 
 ```bash
-export DATABASE_URL=postgresql://MAC_USER:postgres@localhost:5432/zenchain-explorer
+export DATABASE_URL=postgresql://MAC_USER:postgres@localhost:5432/zentrace
 ```
 
 ### Additional dependencies
@@ -155,10 +155,10 @@ sudo apt install -y libssl-dev make automake autoconf libncurses5-dev gcc g++ in
 Create a new folder, open it in the terminal and execute:
 
 ```text
-git clone https://github.com/zenchain-protocol/zenchain-explorer-backend
+git clone https://github.com/zenchain-protocol/zentrace-backend
 ```
 
-Open `zenchain-explorer-backend` folder and execute:
+Open `zentrace-backend` folder and execute:
 
 ```bash
 asdf install
@@ -171,11 +171,12 @@ mix do deps.get, local.rebar --force, deps.compile
 You can also build and run all within Docker directly.
 
 Edit the following environment variables:
-* [common-backend.env](docker-compose/envs/common-backend.env) 
-* [common-frontend.env](docker-compose/envs/common-frontend.env) 
-* [common-smart-contract-verifier.env](docker-compose/envs/common-smart-contract-verifier.env) 
-* [common-stats.env](docker-compose/envs/common-stats.env) 
-* [common-visualizer.env](docker-compose/envs/common-visualizer.env) 
+
+- [common-backend.env](docker-compose/envs/common-backend.env)
+- [common-frontend.env](docker-compose/envs/common-frontend.env)
+- [common-smart-contract-verifier.env](docker-compose/envs/common-smart-contract-verifier.env)
+- [common-stats.env](docker-compose/envs/common-stats.env)
+- [common-visualizer.env](docker-compose/envs/common-visualizer.env)
 
 and then execute:
 
@@ -227,7 +228,7 @@ Generate local SSL certificate for development:
 
 ```bash
 cd apps/block_scout_web
-mix phx.gen.cert zenchain-explorer zenchain-explorer.local
+mix phx.gen.cert zentrace zentrace.local
 ```
 
 Edit [common-backend.env](docker-compose/envs/common-backend.env) variables and execute the following command to export all:
